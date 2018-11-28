@@ -11,11 +11,11 @@
        <table>
     <tbody>
         <tr>
-            <th>タイトル</th>
+            <th>タスク</th>
             <td><c:out value="${task.title}" /></td>
         </tr>
         <tr>
-            <th>内容</th>
+            <th>いつまで</th>
             <td><c:out value="${task.content}" /></td>
         </tr>
         <tr>
