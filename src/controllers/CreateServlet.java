@@ -34,9 +34,10 @@ public class CreateServlet extends HttpServlet {
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String _token = (String)request.getParameter("_token");
-        if(_token != null && _token.equals(request.getSession().getId())) {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String _token = (String) request.getParameter("_token");
+        if (_token != null && _token.equals(request.getSession().getId())) {
             EntityManager em = DBUtil.createEntityManager();
 
             Task m = new Task();
@@ -52,7 +53,7 @@ public class CreateServlet extends HttpServlet {
             m.setUpdated_at(currentTime);
 
             List<String> errors = TaskValidator.validate(m);
-            if(errors.size() > 0) {
+            if (errors.size() > 0) {
                 em.close();
 
                 request.setAttribute("_token", request.getSession().getId());
@@ -70,15 +71,6 @@ public class CreateServlet extends HttpServlet {
 
                 response.sendRedirect(request.getContextPath() + "/index");
             }
-
-            em.getTransaction().begin();
-            em.persist(m);
-            em.getTransaction().commit();
-            request.getSession().setAttribute("flush", "登録が完了しました。");
-            em.close();
-
-            response.sendRedirect(request.getContextPath() + "/index");
         }
     }
-
 }
